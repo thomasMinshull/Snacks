@@ -9,17 +9,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    //MARK: Outlets
+    @IBOutlet weak var navBar: UIView!
+    @IBOutlet weak var customNavBarHeight: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: Actions
+    @IBAction func plusIconTapped(sender: AnyObject) {
+        if self.customNavBarHeight.constant == 64 {
+            self.customNavBarHeight.constant = 200
+        } else {
+            self.customNavBarHeight.constant = 64
+        }
+        
+        UIView.animateWithDuration(1.0) {
+            self.navBar.layoutIfNeeded()
+        }
     }
 
+    
 
 }
 
