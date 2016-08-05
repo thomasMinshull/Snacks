@@ -40,9 +40,40 @@
                                     <constraint firstAttribute="trailing" secondItem="G12-UA-gPB" secondAttribute="trailing" id="h9H-Gi-3r1"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vob-Jd-81J">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="ULF-ye-K9B" style="IBUITableViewCellStyleDefault" id="YYt-af-uRk">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YYt-af-uRk" id="1ps-B4-7zZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ULF-ye-K9B">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="o5m-40-wdl"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="pyS-cp-qIg"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vob-Jd-81J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3wx-Va-Sgy"/>
+                            <constraint firstItem="vob-Jd-81J" firstAttribute="top" secondItem="Qhn-tk-L3f" secondAttribute="bottom" id="6Yo-B5-Cdx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vob-Jd-81J" secondAttribute="bottom" id="ASj-Ov-xM8"/>
+                            <constraint firstAttribute="trailing" secondItem="vob-Jd-81J" secondAttribute="trailing" id="D9H-hN-edh"/>
                             <constraint firstItem="Qhn-tk-L3f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EqP-FM-1Pm"/>
                             <constraint firstAttribute="trailing" secondItem="Qhn-tk-L3f" secondAttribute="trailing" id="H4P-EL-DPN"/>
                             <constraint firstItem="Qhn-tk-L3f" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pAS-mk-N9q"/>
@@ -52,6 +83,7 @@
                         <outlet property="customNavBarHeight" destination="ddu-az-FT6" id="56v-f0-P8t"/>
                         <outlet property="navBar" destination="Qhn-tk-L3f" id="qnz-pV-b8Z"/>
                         <outlet property="plusButton" destination="G12-UA-gPB" id="GhK-1S-82X"/>
+                        <outlet property="tableView" destination="vob-Jd-81J" id="RiY-d3-fQY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
