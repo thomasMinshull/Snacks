@@ -18,20 +18,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK: Properties 
     var stackView:UIStackView!
     var dataSourceArray = [String]()
+    let snacksLabel = UILabel()
+    var constraints = [NSLayoutConstraint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let snacksLabel = UILabel()
         snacksLabel.text = "SNACKS"
+        snacksLabel.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
+        
         
         snacksLabel.translatesAutoresizingMaskIntoConstraints = false
         navBar.addSubview(snacksLabel)
         
-        let snackYCenter = snacksLabel.centerYAnchor.constraintEqualToAnchor(navBar.centerYAnchor)
+        let snackYCenterClosed = snacksLabel.centerYAnchor.constraintEqualToAnchor(navBar.centerYAnchor)
         snacksLabel.centerXAnchor.constraintEqualToAnchor(navBar.centerXAnchor).active = true
-        snackYCenter.active = true
-        snackYCenter.identifier = "snackYCenter"
+        snackYCenterClosed.active = true
+        snackYCenterClosed.identifier = "snackYCenterClosed"
+        constraints.append(snackYCenterClosed)
+        
+        let snackYCenterOpen = snacksLabel.centerYAnchor.constraintEqualToAnchor(navBar.centerYAnchor, constant: -40)
+        snacksLabel.centerXAnchor.constraintEqualToAnchor(navBar.centerXAnchor).active = true
+        snackYCenterOpen.active = true
+        snackYCenterOpen.identifier = "snackYCenterOpen"
+        constraints.append(snackYCenterOpen)
+        self.navBar.removeConstraint(snackYCenterOpen) // do not wan this constraint applied upon launch
 
         let cookieView = UIImageView(image: UIImage(named: "oreos"))
         let pizzaPocketView = UIImageView(image: UIImage(named: "pizza_pockets"))
@@ -137,24 +148,48 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func plusIconTapped(sender: AnyObject) {
         var rotation:Double? = nil
         
-        if self.customNavBarHeight.constant == 64 {
-            self.customNavBarHeight.constant = 200
-            rotation = 40.0
-            stackView.hidden = false
-        } else {
-            self.customNavBarHeight.constant = 64
-            rotation = 0.0
-            stackView.hidden = true
-        }
+        self.stackView.center.y = -self.stackView.frame.size.height
         
-        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options:[] , animations: {
+        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1.0, options:[] , animations: {
             
             if let rotation = rotation {
                 self.plusButton.transform = CGAffineTransformMakeRotation(CGFloat(rotation))
             }
             
+            if self.customNavBarHeight.constant == 64 {
+                self.customNavBarHeight.constant = 200
+                rotation = 40.0
+                self.stackView.hidden = false
+            } else {
+                self.customNavBarHeight.constant = 64
+                rotation = 0.0
+                self.stackView.hidden = true
+            }
+            
+            for constraint in self.constraints {
+                if constraint.identifier == "snackYCenterClosed" {
+                    if self.navBar.constraints.contains(constraint) {
+                        self.navBar.removeConstraint(constraint)
+                        self.snacksLabel.text = "Add a SNACK"
+                    } else {
+                        self.navBar.addConstraint(constraint)
+                        self.snacksLabel.text = "SNACK"
+                    }
+                }
+            
+                if constraint.identifier == "snackYCenterOpen" {
+                    if self.navBar.constraints.contains(constraint) {
+                        self.navBar.removeConstraint(constraint)
+                    } else {
+                        self.navBar.addConstraint(constraint)
+                    }
+                }
+            }
+            
             self.view.layoutIfNeeded()
-        }, completion: nil)
+            },completion: {(bool) in
+                print("stuff")
+            })
     }
 
     //MARK: UITableViewDataSource Methods
